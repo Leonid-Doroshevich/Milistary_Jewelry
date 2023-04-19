@@ -1,0 +1,35 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Milistary Jewelry{% endblock %}
+{% block catalog %}active{% endblock %}
+
+{% block content %}
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+            <div class="col-lg-3 col-sm-6 mb-4">
+                <div class="product-card">
+                    <div class="product-thumb">
+                        <a href="{% url 'catalog:product' product.slug %}"><img src="{{ product.image1.url }}" alt=""></a>
+                    </div>
+                    <div class="product-details">
+                        <h4><a href="{% url 'catalog:product' product.slug %}">{{ product.name }}</a></h4>
+                        <p>{{ product.description }}</p>
+                        <div class="product-bottom-details d-flex justify-content-between">
+                            <div class="product-price">
+                                ${{ product.price }}
+                            </div>
+                            <div class="product-links">
+                                <a href="{% url 'catalog:basket_add' product.id %}"><i class="fas fa-shopping-cart"></i></a>
+                                <!-- <a href="#"><i class="far fa-heart"></i></a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

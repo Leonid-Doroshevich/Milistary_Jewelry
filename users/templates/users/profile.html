@@ -1,0 +1,73 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="row">
+    <div class="col-lg-7">
+        <h1>Profile</h1>
+    {% if user.image %}
+    <img class="rounded-circle mx-auto d-block" src="{{ user.image.url }}" alt="">
+    {% else %}
+    <img class="rounded-circle mx-auto d-block" src="{% static 'shop\img\default-user.png' %}" alt="">
+    {% endif %}
+    <form class="row g-3" method="post" action="{% url 'users:profile' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-md-6">
+            <label class="form-label">First name</label>
+            {{ form.first_name }}
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Last name</label>
+            {{ form.last_name }}
+        </div>
+        <div class="col-12">
+            <label class="form-label">Choose your image</label>
+            {{ form.image }}
+        </div>
+        <div class="col-12">
+            <label class="form-label">Address</label>
+            {{ form.address }}
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">City</label>
+            {{ form.city }}
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">State</label>
+            {{ form.state }}
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Zip</label>
+            {{ form.postcode }}
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Username</label>
+            {{ form.username }}
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">E-mail</label>
+            {{ form.email }}
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    </div>
+    <div class="col-lg-5">
+        {% include 'shop/cart.html' %}
+    </div>
+</div>
+{% else %}
+<div class="row">
+    <div class="alert alert-danger" role="alert">
+        <p>You need to sign in first</p>
+    </div>
+    <a class="btn btn-light col-md-2" href="{% url 'users:login' %}" role="button">Log-in</a>
+    <a class="btn btn-light col-md-2" href="{% url 'users:registration' %}" role="button">Registration</a>
+
+</div>
+{% endif %}
+{% endblock %}
