@@ -23,7 +23,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="{% static 'shop/css/shop.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'shop/css/slick.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'shop/css/slick-theme.css' %}">
@@ -32,8 +32,8 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
+    <div class="container" id="wrapper">
+        <div class="row" id="content">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'shop/img/logo.jpg' %}" /></a>
@@ -78,7 +78,7 @@
                                         <a class="dropdown-item" href="{% url 'users:logout' %}">Log-out</a>
                                     </li>
                                     {% if user.is_superuser or user.is_stuff %}
-                                        <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
+                                    <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
                                     {% endif %}
                                 </ul>
                                 {% else %}
@@ -94,57 +94,6 @@
                                 </ul>
                                 {% endif %}
                             </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal-cart">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </a>
-                                <div class="modal fade" id="modal-cart" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header bg-secondary text-white">
-                                                <h5 class="modal-title" id="exampleModalLabel">Card</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <!-- <div class="modal-body">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td><img src="img/products/apple_cinema_30.jpg" alt=""></td>
-                                                    <td><a href="#">Apple Cinema 30"</a></td>
-                                                    <td>$230.99</td>
-                                                    <td>1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="img/products/canon_eos_5d_1.jpg" alt=""></td>
-                                                    <td><a href="#">Canon EOS 5D</a></td>
-                                                    <td>$230.99</td>
-                                                    <td>1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="img/products/hp_1.jpg" alt=""></td>
-                                                    <td><a href="#">HP</a></td>
-                                                    <td>$230.99</td>
-                                                    <td>1</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <!-- <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
-                    </li> -->
                         </ul>
                     </div>
                 </div>
@@ -154,6 +103,24 @@
 
         {% block content %}
         {% endblock %}
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-lg-4 d-flex justify-content-center">
+                <p class="mb-0 text-muted">© 2022 Company, Inc</p>
+            </div>
+            <ul class="list-unstyled col-lg-4 d-flex justify-content-center">
+                <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-pinterest"></i></a></li>
+                <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-instagram"></i></a></li>
+                <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-telegram"></i></a></li>
+            </ul>
+            <ul class="nav col-lg-4 justify-content-center">
+                <li class="nav-item"><a href="{% url 'index' %}" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="{% url 'catalog:catalog' %}" class="nav-link px-2 text-muted">Catalog</a>
+                </li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About Us</a></li>
+                <li class="nav-item"><a href="{% url 'contact:contact' %}" class="nav-link px-2 text-muted">Contact
+                        Us</a></li>
+            </ul>
+        </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"

@@ -5,13 +5,27 @@ from .forms import Quantity
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.core.paginator import Paginator
 
 def index(request):
     return render(request, 'shop/index.html')
 
-def catalog(request):
-    products = Product.objects.filter(available=True)
-    return render(request, 'shop/catalog.html', {'products': products})
+def catalog(request, category_id=None, page_number=1):
+    if category_id:
+        category = Category.objects.get(id=category_id)
+        products = Product.objects.filter(category=category)
+    else:
+        products = Product.objects.order_by('name')
+
+    per_page = 3
+    paginator = Paginator(products, per_page)
+    products_paginator = paginator.page(page_number)
+
+    context = {
+        'products': products_paginator,
+        'categories': Category.objects.all()
+    }
+    return render(request, 'shop/catalog.html', context)
 
 def product(request, slug):
     product = get_object_or_404(Product, slug=slug, available=True)

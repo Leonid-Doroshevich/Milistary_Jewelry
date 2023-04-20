@@ -172,10 +172,22 @@ a:hover {
 	max-width: 30px
 }
 
-.row{
-	margin-bottom: 1rem;
-}
+
 .card-title{
 	position: relative;
 	top: 50%;
+}
+footer{
+	flex-direction: column-reverse;
+}
+footer ul{
+	display: flex;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    flex-direction: row;
+}
+
+.col-lg-4 p{
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
 }

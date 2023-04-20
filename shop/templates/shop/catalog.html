@@ -1,34 +1,64 @@
 {% extends 'shop/base.html' %}
 
-{% block title %}Milistary Jewelry{% endblock %}
+{% block title %}Catalog{% endblock %}
 {% block catalog %}active{% endblock %}
 
 {% block content %}
 <section class="main-content">
-    <div class="container">
-        <div class="row">
-            {% for product in products %}
-            <div class="col-lg-3 col-sm-6 mb-4">
-                <div class="product-card">
-                    <div class="product-thumb">
-                        <a href="{% url 'catalog:product' product.slug %}"><img src="{{ product.image1.url }}" alt=""></a>
-                    </div>
-                    <div class="product-details">
-                        <h4><a href="{% url 'catalog:product' product.slug %}">{{ product.name }}</a></h4>
-                        <p>{{ product.description }}</p>
-                        <div class="product-bottom-details d-flex justify-content-between">
-                            <div class="product-price">
-                                ${{ product.price }}
-                            </div>
-                            <div class="product-links">
-                                <a href="{% url 'catalog:basket_add' product.id %}"><i class="fas fa-shopping-cart"></i></a>
-                                <!-- <a href="#"><i class="far fa-heart"></i></a> -->
+    <div class="row">
+        <div class="col-md-2">
+            <h3>Store</h3>
+            <div class="list-group">
+                {% for category in categories %}
+                <a href="{% url 'catalog:category' category.id %}" class="list-group-item list-group-item-action" aria-current="true">
+                    {{ category.name }}</a>
+                {% endfor %}
+                <a href="{% url 'catalog:catalog' %}" class="list-group-item list-group-item-action">All</a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                {% for product in products %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="product-card">
+                        <div class="product-thumb">
+                            <a href="{% url 'catalog:product' product.slug %}"><img src="{{ product.image1.url }}"
+                                    alt=""></a>
+                        </div>
+                        <div class="product-details">
+                            <h4><a href="{% url 'catalog:product' product.slug %}">{{ product.name }}</a></h4>
+                            <p>{{ product.description }}</p>
+                            <div class="product-bottom-details d-flex justify-content-between">
+                                <div class="product-price">
+                                    ${{ product.price }}
+                                </div>
+                                <div class="product-links">
+                                    <a href="{% url 'catalog:basket_add' product.id %}"><i
+                                            class="fas fa-shopping-cart"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item {% if not products.has_previous %}disabled{% endif %}">
+                        <a class="page-link"
+                            href="{% if products.has_previous %} {% url 'catalog:paginator' products.previous_page_number %} {% else %} # {% endif %}">Previous</a>
+                    </li>
+                    {% for page in products.paginator.page_range %}
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'catalog:paginator' page %}">{{ page }}</a>
+                    </li>
+                    {% endfor %}
+                    <li class="page-item {% if not products.has_next %}disabled{% endif %}">
+                        <a class="page-link"
+                            href="{% if products.has_next %} {% url 'catalog:paginator' products.next_page_number %} {% else %} # {% endif %}">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </section>

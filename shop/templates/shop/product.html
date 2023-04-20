@@ -48,7 +48,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h1 class="h2">{{ product.name }}</h1>
-                            <p class="h3 py-2">${{ product.price }}</p>
+                            <h2 class="product-price">${{ product.price }}</h2>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <h6>Brand:</h6>
@@ -60,47 +60,28 @@
 
                             <h6>Description:</h6>
                             <p>{{ product.description }}</p>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <h6>Avaliable Color :</h6>
-                                </li>
-                                <li class="list-inline-item">
-                                    <p class="text-muted"><strong>Silver/Black</strong></p>
-                                </li>
-                            </ul>
-
-                            <h6>Specification:</h6>
-                            <ul class="list-unstyled pb-3">
-                                <li>Lorem ipsum dolor sit</li>
-                                <li>Amet, consectetur</li>
-                                <li>Adipiscing elit,set</li>
-                                <li>Duis aute irure</li>
-                                <li>Ut enim ad minim</li>
-                                <li>Dolore magna aliqua</li>
-                                <li>Excepteur sint</li>
-                            </ul>
-
                             <form action="" method="Post">
                                 {% csrf_token %}
                                 <input type="hidden" name="product-title" value="Activewear">
                                 <div class="row">
                                     <div class="col-auto">
                                         <ul class="list-inline pb-3">
-                                            <li class="list-inline-item text-right">
-                                                Quantity
+                                            <li class="list-inline-item">
+                                                Quantity: 
+                                            <li class="list-inline-item">
+                                                {{ form.quantity }}
                                             </li>
-                                            <li class="list-inline-item"><span class="btn btn-primary"
-                                                    id="btn-minus">-</span></li>
-                                            <li class="list-inline-item">{{ form.quantity }}</li>
-                                            <li class="list-inline-item"><span class="btn btn-primary"
-                                                    id="btn-plus">+</span></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="row pb-3">
-                                    <div class="col d-grid">
-                                        <button type="submit" class="btn btn-primary btn-lg" name="submit">Add To
+                                    <div class="col-md-3 d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary btn" name="submit">Add To
                                             Cart</button>
+                                    </div>
+                                    <div class="col-md-3 d-grid gap-2">
+                                            <a class="btn btn-primary btn" href="{% url 'users:profile' %}">
+                                                Cart</a>
                                     </div>
                                 </div>
                             </form>
