@@ -13,18 +13,21 @@ def index(request):
 def catalog(request, category_id=None, page_number=1):
     if category_id:
         category = Category.objects.get(id=category_id)
-        products = Product.objects.filter(category=category)
-    else:
-        products = Product.objects.order_by('name')
-
-    per_page = 3
-    paginator = Paginator(products, per_page)
-    products_paginator = paginator.page(page_number)
-
-    context = {
-        'products': products_paginator,
+        products = Product.objects.filter(category=category).order_by('id')
+        context = {
+        'products': products,
         'categories': Category.objects.all()
     }
+        
+    else:
+        products = Product.objects.order_by('id')
+        per_page = 3
+        paginator = Paginator(products, per_page)
+        products_paginator = paginator.page(page_number)
+        context = {
+            'products': products_paginator,
+            'categories': Category.objects.all()
+        }
     return render(request, 'shop/catalog.html', context)
 
 def product(request, slug):
